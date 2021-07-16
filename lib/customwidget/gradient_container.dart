@@ -20,7 +20,7 @@ class GradientContainer extends StatelessWidget {
               fit: BoxFit.cover,
               colorFilter: new ColorFilter.mode(
                   Colors.black.withOpacity(0.1), BlendMode.dstATop),
-              image: AssetImage('back.png'))),
+              image: AssetImage('assets/back.png'))),
       child: child,
     );
   }

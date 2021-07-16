@@ -165,7 +165,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return "${msg![0].toUpperCase()}${msg.substring(1)}";
   }
 
-  Widget _buildSocialBtn(AssetImage logo, EdgeInsetsGeometry padding) {
+  Widget _buildSocialBtn(
+      AssetImage logo, EdgeInsetsGeometry padding, double size) {
     return GestureDetector(
       onTap: () {
         showDialog(
@@ -181,8 +182,8 @@ class _LoginScreenState extends State<LoginScreen> {
             });
       },
       child: Container(
-        height: 60.0,
-        width: 60.0,
+        height: size,
+        width: size,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.white,
@@ -204,7 +205,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildSocialBtnRow() {
+  Widget _buildSocialBtnRow(double size) {
+    size > 100 ? size = 100 : size = size;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 30.0),
       child: Row(
@@ -215,18 +217,21 @@ class _LoginScreenState extends State<LoginScreen> {
               'assets/google.png',
             ),
             EdgeInsets.zero,
+            size,
           ),
           _buildSocialBtn(
             AssetImage(
               'assets/facebook.png',
             ),
             EdgeInsets.zero,
+            size,
           ),
           _buildSocialBtn(
             AssetImage(
               'assets/twitter.png',
             ),
             EdgeInsets.all(5.0),
+            size,
           ),
         ],
       ),
@@ -237,6 +242,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return GestureDetector(
       onTap: () => print('Sign Up Pressed'),
       child: RichText(
+        textAlign: TextAlign.center,
         text: TextSpan(
           children: [
             TextSpan(
@@ -270,52 +276,66 @@ class _LoginScreenState extends State<LoginScreen> {
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               padding: EdgeInsets.symmetric(
-                horizontal: 50.0,
-                vertical: 100.0,
+                horizontal: MediaQuery.of(context).size.width * 0.075,
+                vertical: MediaQuery.of(context).size.height * 0.075,
               ),
               child: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
-                if (constraints.maxWidth >= 700) {
+                if (constraints.maxWidth >=
+                    MediaQuery.of(context).size.height) {
                   return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
+                      Container(
+                        height: MediaQuery.of(context).size.height / 10,
+                        child: FittedBox(
+                          child: Text(
+                            'Sign In',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 50.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 30.0),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 15,
+                      ),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            width: constraints.maxWidth * 0.5,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                _buildEmailTF(),
-                                SizedBox(
-                                  height: 50.0,
-                                ),
-                                _buildPasswordTF(),
-                                _buildForgotPasswordBtn(),
-                                _buildRememberMeCheckbox(),
-                                _buildLoginBtn(),
-                              ],
+                          Center(
+                            child: Container(
+                              width: constraints.maxWidth * 0.55,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  _buildEmailTF(),
+                                  SizedBox(
+                                    height: 50.0,
+                                  ),
+                                  _buildPasswordTF(),
+                                  _buildForgotPasswordBtn(),
+                                  _buildRememberMeCheckbox(),
+                                  _buildLoginBtn(),
+                                ],
+                              ),
                             ),
                           ),
                           Container(
-                            width: constraints.maxWidth * 0.5,
+                            width: constraints.maxWidth * 0.45,
+                            padding: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * 0.075,
+                            ),
                             child: Column(
                               children: [
                                 _buildSignInWithText(),
-                                _buildSocialBtnRow(),
+                                _buildSocialBtnRow(
+                                    constraints.maxWidth * 0.45 / 5),
                                 _buildSignupBtn(),
                               ],
                             ),
@@ -328,15 +348,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      'Sign In',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      height: MediaQuery.of(context).size.height / 15,
+                      child: FittedBox(
+                        child: Text(
+                          'Sign In',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
-                    SizedBox(height: 30.0),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 30,
+                    ),
                     _buildEmailTF(),
                     SizedBox(
                       height: 30.0,
@@ -346,7 +373,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     _buildRememberMeCheckbox(),
                     _buildLoginBtn(),
                     _buildSignInWithText(),
-                    _buildSocialBtnRow(),
+                    _buildSocialBtnRow(constraints.maxWidth / 5),
                     _buildSignupBtn(),
                   ],
                 );

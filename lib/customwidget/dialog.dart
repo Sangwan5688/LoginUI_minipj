@@ -32,7 +32,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
 
   dialogBox(context) {
     return Container(
-      padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
+      padding: EdgeInsets.fromLTRB(15.0, 20.0, 15.0, 15.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[

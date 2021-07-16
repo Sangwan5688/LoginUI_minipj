@@ -5,11 +5,11 @@ import 'package:device_preview/device_preview.dart';
 import 'package:miniproject/screens/login_screen.dart';
 
 void main() => runApp(
-  DevicePreview(
-    enabled: !kReleaseMode,
-    builder: (context) => MyApp(), // Wrap your app
-  ),
-);
+      DevicePreview(
+        enabled: !kReleaseMode,
+        builder: (context) => MyApp(),
+      ),
+    );
 
 class MyApp extends StatelessWidget {
   final Color themeColor = Colors.tealAccent[400]!;
@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
         accentColor: themeColor,
       ),
       home: LoginScreen(),
-      // home: Scaffold(body: Text("Hi THERE")),
     );
   }
 }
